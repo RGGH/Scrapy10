@@ -1,2 +1,2 @@
-# Scrapy10
-Amazon Spider ('web scrapign books')
+# Scrapy 10
+Amazon Spider ('web scraping books')
