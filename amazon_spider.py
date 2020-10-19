@@ -37,7 +37,6 @@ class AmazonSpider(scrapy.Spider):
             
     def parse(self,response):
    
-        
         listings = response.xpath('//*[contains(@class,"sg-col-20-of-24 s-result-item s-asin")]')
         
         for book in listings:
@@ -56,17 +55,22 @@ class AmazonSpider(scrapy.Spider):
                 pass
             
             star_rating = book.xpath('.//span[@class="a-icon-alt"]/text()').get()
+            
             book_format = book.xpath('.//a[@class="a-size-base a-link-normal a-text-bold"]/text()').get()
             if book_format:
-                book_format = book_format.strip()     
+                book_format = book_format.strip() 
+                    
             price = book.xpath('.//span[@class="a-offscreen"]/text()').get()
-            #cover_image = book.xpath('//div[@class="a-section aok-relative s-image-fixed-height"]/img/@src').get()
+            
+            cover_image = book.xpath('.//div[@class="a-section aok-relative s-image-fixed-height"]/img/@src').get()
+            
             items = {
                 'title' : title,
                 'author' : author,
                 'star_rating' : star_rating,
                 'book_format' : book_format,
-                'price' : price
+                'price' : price,
+                'cover_image' : cover_image
             }
             
             yield items
@@ -85,4 +89,3 @@ if __name__ == "__main__" :
     process=CrawlerProcess()
     process.crawl(AmazonSpider)
     process.start()
-  
