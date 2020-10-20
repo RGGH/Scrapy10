@@ -1,12 +1,8 @@
-# -*- coding: utf-8 -*-
-#+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-#|r|e|d|a|n|d|g|r|e|e|n|.|c|o|.|u|k|
-#+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
 import sqlite3
 
 from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
+
 
 class AmzPipeline(object):
 
@@ -27,13 +23,15 @@ class AmzPipeline(object):
             )""")
             
     def process_item(self,item,spider):
-        self.store_db(item)
+        # select and store ONLY the Paperback books
         adapter = ItemAdapter(item)
         if adapter.get('book_format'):
             if adapter['book_format'] == 'Paperback':
-                return item
-        else:
-            raise DropItem(f"Not a paperback book {item}")
+                self.store_db(item)
+            else:
+                raise DropItem(f"Not a paperback book {item}")
+         
+        
    
     def store_db(self,item):
         self.curr.execute("""INSERT into books_sqlite values(?,?,?)""",(
