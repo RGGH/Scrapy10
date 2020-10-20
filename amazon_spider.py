@@ -1,15 +1,18 @@
 import scrapy
 import os
 from scrapy.crawler import CrawlerProcess
+from scrapy.loader import ItemLoader
 from urllib.parse import urlencode
 import w3lib.html
 import re
+from sys import path
+path.append('/home/rag/Documents/Scrapers/amazon/amz/amz')
+from items import AmzItem
      
 class AmazonSpider(scrapy.Spider):
     
     name = 'amazon_spider'
     download_delay = 10 
-    custom_settings = { 'FEEDS' : {'results.csv':{'format':'csv'}}}
     start_urls = ['https://www.amazon.com/s?k=web+scraping+books']
     headers = {
         'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
@@ -34,13 +37,15 @@ class AmazonSpider(scrapy.Spider):
     def __init__(self):
         self.page = 1
         self.base_url = "https://www.amazon.com/s?k=web+scraping+books&"
-            
+        
     def parse(self,response):
-   
+    
+        items = AmzItem()
+        
         listings = response.xpath('//*[contains(@class,"sg-col-20-of-24 s-result-item s-asin")]')
         
         for book in listings:
-        
+
             title = book.xpath('.//*[@class="a-size-medium a-color-base a-text-normal"]/text()').get()
             title = title.replace('\"','') 
              
@@ -51,6 +56,8 @@ class AmazonSpider(scrapy.Spider):
                 author = author.lstrip().rstrip()
                 author = re.sub('\s+', '!z!', author)
                 author = author.split('!z!')[:-4]
+                author = " ".join(author)
+                
             except:
                 pass
             
@@ -64,16 +71,15 @@ class AmazonSpider(scrapy.Spider):
             
             cover_image = book.xpath('.//div[@class="a-section aok-relative s-image-fixed-height"]/img/@src').get()
             
-            items = {
-                'title' : title,
-                'author' : author,
-                'star_rating' : star_rating,
-                'book_format' : book_format,
-                'price' : price,
-                'cover_image' : cover_image
-            }
-            
+            items['title'] = title
+            items['author'] = author
+            items['star_rating'] = star_rating
+            items['book_format'] = book_format
+            items['price'] = price
+            items['cover_image'] = cover_image
+  
             yield items
+            
             
         # Go to next page if next page exists
         self.params['page'] += self.page
@@ -82,8 +88,7 @@ class AmazonSpider(scrapy.Spider):
         next_url = self.base_url + urlencode(self.params)
         if response.xpath('//li[@class="a-last"]/a/text()').get() == 'Next':
             yield response.follow(next_url,headers=self.headers, callback=self.parse,)
-    
-# main driver
+
 
 if __name__ == "__main__" :
     process=CrawlerProcess()
