@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+#|r|e|d|a|n|d|g|r|e|e|n|.|c|o|.|u|k|
+#+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
 import scrapy
 
 class AmzItem(scrapy.Item):
