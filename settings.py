@@ -1,11 +1,7 @@
-# Scrapy settings for amz project
-#
-# For simplicity, this file contains only settings considered important or
-# commonly used. You can find more settings consulting the documentation:
-#
-#     https://docs.scrapy.org/en/latest/topics/settings.html
-#     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+# -*- coding: utf-8 -*-
+#+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+#|r|e|d|a|n|d|g|r|e|e|n|.|c|o|.|u|k|
+#+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 BOT_NAME = 'amz'
 
