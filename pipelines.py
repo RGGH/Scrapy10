@@ -3,7 +3,6 @@
 #|r|e|d|a|n|d|g|r|e|e|n|.|c|o|.|u|k|
 #+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-
 import sys
 import mysql.connector
 from mysql.connector import errorcode
@@ -42,7 +41,7 @@ class AmzPipeline(object):
             author VARCHAR(255),
             star_rating VARCHAR(40),
             book_format VARCHAR(255),
-            price VARCHAR(9),
+            price DECIMAL(7,2),
             cover_image VARCHAR(255))
             """)
             
@@ -71,6 +70,14 @@ class AmzPipeline(object):
             )
         self.curr.execute(myquery, val)
         self.conn.commit()
+        
+    def close_spider(self, spider):
+        self.conn.close()
+        
 
-        # to do : add conn.close
+    
+  
+        
+       
+            
      
