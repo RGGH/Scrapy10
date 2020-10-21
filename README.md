@@ -1,6 +1,11 @@
 # Scrapy 10
 Amazon Scrapy Spider ('web scraping books')
 
+<br>
+<p align="center">
+  <img src="/images/sm1.PNG">
+</p>
+
 ## Includes pipelines / MySQL
 
 [Scrapy Item Pipeline ](https://docs.scrapy.org/en/latest/topics/item-pipeline.html)
