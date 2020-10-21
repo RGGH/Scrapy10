@@ -1,7 +1,7 @@
 # Scrapy 10
 Amazon Scrapy Spider ('web scraping books')
 
-## Includes pipelines / SQL
+## Includes pipelines / MySQL
 
 [Scrapy Item Pipeline ](https://docs.scrapy.org/en/latest/topics/item-pipeline.html)
 
