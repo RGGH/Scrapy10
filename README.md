@@ -12,4 +12,7 @@ I use `process_item` to identify only 'Paperback' books from our Amazon Search.
 
 
 ![Amazon Web Scraping Books]
-<p align="center">(/images/scrapy-amazon.PNG)</p>
+
+<p align="center">
+  <img src="/images/scrapy-amazon.PNG">
+</p>
