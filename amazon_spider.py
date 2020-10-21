@@ -50,10 +50,12 @@ class AmazonSpider(scrapy.Spider):
         listings = response.xpath('//*[contains(@class,"sg-col-20-of-24 s-result-item s-asin")]')
         
         for book in listings:
-
+            
+            # title
             title = book.xpath('.//*[@class="a-size-medium a-color-base a-text-normal"]/text()').get()
             title = title.replace('\"','') 
-             
+
+            # author 
             try:      
                 author = book.css('.sg-col-12-of-28 .a-color-secondary').get()
                 author = w3lib.html.remove_tags(author)
@@ -66,14 +68,21 @@ class AmazonSpider(scrapy.Spider):
             except:
                 pass
             
+            # star rating
             star_rating = book.xpath('.//span[@class="a-icon-alt"]/text()').get()
             
+            # book format
             book_format = book.xpath('.//a[@class="a-size-base a-link-normal a-text-bold"]/text()').get()
             if book_format:
                 book_format = book_format.strip() 
-                    
-            price = book.xpath('.//span[@class="a-offscreen"]/text()').get()
             
+            # price        
+            price = book.xpath('.//span[@class="a-offscreen"]/text()').get()
+            if price:
+                clean_price = (lambda value: float(value.replace("$", "")))
+                price = clean_price(price)
+            
+            # cover image
             cover_image = book.xpath('.//div[@class="a-section aok-relative s-image-fixed-height"]/img/@src').get()
             
             items['title'] = title
