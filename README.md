@@ -14,5 +14,5 @@ I use `process_item` to identify only 'Paperback' books from our Amazon Search.
 </p>
 <br>
 <p align="center">
-  <img src="/images/scrapy-amazon.PNG">
+  <img src="/images/phpmyadmin_screenshot-800w.png">
 </p>
