@@ -8,3 +8,6 @@ Amazon Scrapy Spider ('web scraping books')
 Uses 'pipelines.py' to send output to sqlite db - also filters out books so that only "Paperback" format are saved to db.
 
 I use `process_item` to identify only 'Paperback' books from our Amazon Search.
+
+![Amazon Web Scraping Books](Misc/blob/master/scrapy-amazon.PNG)
+
