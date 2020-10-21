@@ -9,10 +9,6 @@ Uses 'pipelines.py' to send output to sqlite db - also filters out books so that
 
 I use `process_item` to identify only 'Paperback' books from our Amazon Search.
 
-
-
-![Amazon Web Scraping Books]
-
 <p align="center">
   <img src="/images/scrapy-amazon.PNG">
 </p>
