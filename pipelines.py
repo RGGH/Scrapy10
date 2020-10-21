@@ -19,11 +19,14 @@ class AmzPipeline(object):
         self.curr.execute("""create table books_sqlite (
             title text,
             author text,
-            book_format text
+            star_rating text,
+            book_format text,
+            price text,
+            cover_image text
             )""")
             
     def process_item(self,item,spider):
-        # select and store ONLY the Paperback books
+        
         adapter = ItemAdapter(item)
         if adapter.get('book_format'):
             if adapter['book_format'] == 'Paperback':
@@ -34,15 +37,17 @@ class AmzPipeline(object):
         
    
     def store_db(self,item):
-        self.curr.execute("""INSERT into books_sqlite values(?,?,?)""",(
-            item['title'],
-            item['author'],
-            item['book_format']
-        ))
+        myquery = """INSERT into books_sqlite 
+        (title, author,star_rating,book_format,price, cover_image) 
+        values (?,?,?,?,?,?)
+        """
+        val=(
+            item.get('title'),
+            item.get('author'),
+            item.get('star_rating'),
+            item.get('book_format'),
+            item.get('price'),
+            item.get('cover_image')
+            )
+        self.curr.execute(myquery, val)
         self.conn.commit()
-    
-    
-        
-       
-            
-     
