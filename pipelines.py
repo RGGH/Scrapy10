@@ -1,8 +1,11 @@
-import sqlite3
+# -*- coding: utf-8 -*-
+#+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+#|r|e|d|a|n|d|g|r|e|e|n|.|c|o|.|u|k|
+#+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
+import sqlite3
 from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
-
 
 class AmzPipeline(object):
 
@@ -34,8 +37,6 @@ class AmzPipeline(object):
             else:
                 raise DropItem(f"Not a paperback book {item}")
          
-        
-   
     def store_db(self,item):
         myquery = """INSERT into books_sqlite 
         (title, author,star_rating,book_format,price, cover_image) 
@@ -49,5 +50,6 @@ class AmzPipeline(object):
             item.get('price'),
             item.get('cover_image')
             )
+        
         self.curr.execute(myquery, val)
         self.conn.commit()
