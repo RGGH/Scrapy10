@@ -8,7 +8,7 @@ import mysql.connector
 from mysql.connector import errorcode
 from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
-from scrapy.crawler import CrawlerProcess
+#from scrapy.crawler import CrawlerProcess
 from datetime import datetime
 
 # Use same posted time for entire instance 
@@ -45,7 +45,7 @@ class AmzPipeline(object):
             id INT AUTO_INCREMENT PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
             author VARCHAR(255),
-            star_rating VARCHAR(40),
+            star_rating DECIMAL(3,1),
             book_format VARCHAR(255),
             price DECIMAL(7,2),
             cover_image VARCHAR(255),
