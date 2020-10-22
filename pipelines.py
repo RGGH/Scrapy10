@@ -9,12 +9,18 @@ from mysql.connector import errorcode
 from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
 from scrapy.crawler import CrawlerProcess
-     
+from datetime import datetime
+
+# Use same posted time for entire instance 
+now = datetime.now()
+formatted_date = now.strftime('%Y-%m-%d %H:%M:%S')
+  
 class AmzPipeline(object):
 
     def __init__(self):
         self.create_conn()
         self.create_table()
+
     
     def create_conn(self):
 
@@ -42,7 +48,9 @@ class AmzPipeline(object):
             star_rating VARCHAR(40),
             book_format VARCHAR(255),
             price DECIMAL(7,2),
-            cover_image VARCHAR(255))
+            cover_image VARCHAR(255),
+            posted TIMESTAMP
+            )
             """)
             
     def process_item(self,item,spider):
@@ -57,8 +65,16 @@ class AmzPipeline(object):
 
     def store_db(self,item):
         myquery = """INSERT into amzbooks 
-        (title, author,star_rating,book_format,price, cover_image) 
-        values (%s,%s,%s,%s,%s,%s)
+        (
+        title, 
+        author,
+        star_rating,
+        book_format,
+        price, 
+        cover_image,
+        posted
+        ) 
+        values (%s,%s,%s,%s,%s,%s,%s)
         """
         val=(
             item.get('title'),
@@ -66,18 +82,12 @@ class AmzPipeline(object):
             item.get('star_rating'),
             item.get('book_format'),
             item.get('price'),
-            item.get('cover_image')
+            item.get('cover_image'),
+            formatted_date
             )
         self.curr.execute(myquery, val)
         self.conn.commit()
         
     def close_spider(self, spider):
         self.conn.close()
-        
-
-    
-  
-        
-       
-            
-     
+   
