@@ -40,8 +40,8 @@ class AmzPipeline(object):
         self.curr = self.conn.cursor()
      
     def create_table(self):
-        self.curr.execute("""DROP TABLE IF EXISTS amzbooks""")
-        self.curr.execute("""CREATE TABLE IF NOT EXISTS amzbooks (
+        self.curr.execute("""DROP TABLE IF EXISTS amzbooks2""")
+        self.curr.execute("""CREATE TABLE IF NOT EXISTS amzbooks2 (
             id INT AUTO_INCREMENT PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
             author VARCHAR(255),
@@ -49,6 +49,7 @@ class AmzPipeline(object):
             book_format VARCHAR(255),
             price DECIMAL(7,2),
             cover_image VARCHAR(255),
+            ratings INT,
             posted TIMESTAMP
             )
             """)
@@ -64,7 +65,7 @@ class AmzPipeline(object):
                 raise DropItem(f"Not a paperback book {item}")
 
     def store_db(self,item):
-        myquery = """INSERT into amzbooks 
+        myquery = """INSERT into amzbooks2 
         (
         title, 
         author,
@@ -72,9 +73,10 @@ class AmzPipeline(object):
         book_format,
         price, 
         cover_image,
+        ratings,
         posted
         ) 
-        values (%s,%s,%s,%s,%s,%s,%s)
+        values (%s,%s,%s,%s,%s,%s,%s,%s)
         """
         val=(
             item.get('title'),
@@ -83,6 +85,7 @@ class AmzPipeline(object):
             item.get('book_format'),
             item.get('price'),
             item.get('cover_image'),
+            item.get('ratings'),
             formatted_date
             )
         self.curr.execute(myquery, val)
