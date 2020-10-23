@@ -10,7 +10,10 @@ from scrapy.loader import ItemLoader
 from urllib.parse import urlencode
 import w3lib.html
 import re
-from ..items import AmzItem
+
+from scrapy.shell import inspect_response
+
+from amz.items import AmzItem
      
 class AmazonSpider(scrapy.Spider):
     
@@ -42,7 +45,7 @@ class AmazonSpider(scrapy.Spider):
         self.base_url = "https://www.amazon.com/s?k=web+scraping+books&"
         
     def parse(self,response):
-    
+        
         items = AmzItem()
         
         listings = response.xpath('//*[contains(@class,"sg-col-20-of-24 s-result-item s-asin")]')
@@ -85,12 +88,21 @@ class AmazonSpider(scrapy.Spider):
             # cover image
             cover_image = book.xpath('.//div[@class="a-section aok-relative s-image-fixed-height"]/img/@src').get()
             
+            # ratings
+            try:
+                ratings = book.css('.a-size-small .a-size-base::text').get()
+                ratings.strip("\'")
+                ratings = int(ratings)
+            except:
+                ratings = 0
+            
             items['title'] = title
             items['author'] = author
             items['star_rating'] = star_rating
             items['book_format'] = book_format
             items['price'] = price
             items['cover_image'] = cover_image
+            items['ratings'] = ratings
   
             yield items
             
