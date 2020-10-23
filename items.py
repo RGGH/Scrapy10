@@ -13,4 +13,5 @@ class AmzItem(scrapy.Item):
     book_format = scrapy.Field()
     price = scrapy.Field()
     cover_image = scrapy.Field()
+    ratings = scrapy.Field()
 
