@@ -16,3 +16,5 @@ I use `process_item` to identify only 'Paperback' books from our Amazon Search.
 <p align="center">
   <img src="/images/scrapy-amazon.PNG">
 </p>
+
+See: https://github.com/RGGH/Scrapy10/tree/DB-MySQL for the MySQL version
