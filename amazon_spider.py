@@ -101,7 +101,7 @@ class AmazonSpider(scrapy.Spider):
         
         next_url = self.base_url + urlencode(self.params)
         if response.xpath('//li[@class="a-last"]/a/text()').get() == 'Next':
-            yield response.follow(next_url,headers=self.headers, callback=self.parse,)
+            yield response.follow(next_url,headers=self.headers, callback=self.parse)
 
 
 if __name__ == "__main__" :
