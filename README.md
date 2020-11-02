@@ -22,6 +22,10 @@ I use `process_item` to identify only 'Paperback' books from our Amazon Search.
   <img src="/images/phpmyadmin_screenshot-800w.png">
 </p>
 
+<a href="https://youtu.be/FbJg4AOknGY">
+  <img src="/images/phpmyadmin_screenshot-800w.png" alt="YouTube Video of Complete Amazon MySQL Project" style="">
+</a> 
+
 ## Visualizing the data with Matplotlib
 <br>
 <p align="center">
