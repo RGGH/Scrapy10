@@ -26,6 +26,6 @@ I use `process_item` to identify only 'Paperback' books from our Amazon Search.
 ## Visualizing the data with Matplotlib
 <br>
 <p align="center">
-  <img src="/images/Visualization_and_Code.JPG">
+  <img src="/images/Visualization_and_Code.png">
 </p>
 
