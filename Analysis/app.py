@@ -1,29 +1,48 @@
 # app.py - make a graph from MySQL data from Scrapy
-
-import matplotlib.pyplot as plt
 import pymysql
+import numpy as np
 import pandas as pd
-plt.style.use('ggplot')
+from matplotlib import pyplot as plt
+import seaborn as sns
+sns.set()
+
+# the query to get only titles with changed prices
+query = '''select amzbooks2.* from 
+                                    (select amzbooks2.*,
+                                    lag(price) over (partition by title order by posted) as prev_price
+                                    from amzbooks2) amzbooks2
+                where prev_price <> price'''
 
 # connect to db
+dbcon = pymysql.connect("192.168.1.7","user1","password1","amz")
 
-dbcon = pymysql.connect("localhost","user1","password1","amz")
+# generate the plot from dataframe (from MySQL - the scraped (stored) data)
+def gen_plot():
+    SQL_Query = pd.read_sql_query(query, dbcon)
 
-try:
-    SQL_Query = pd.read_sql_query(
-        '''SELECT star_rating, price FROM amzbooks2 WHERE star_rating > 1 ORDER BY price ASC''', dbcon 
-    )
+    amz_data = pd.DataFrame(SQL_Query, columns=['id','title','price', 'prev_price'])
+    print(amz_data)
 
-    df = pd.DataFrame(SQL_Query, columns=['star_rating','price'])
-    print(df)
+    fig, ax = plt.subplots()
 
-    df.plot.bar( x = 'price', y = 'star_rating', color="green")
-    plt.ylabel('Rating')
-    plt.xlabel('Price')
-    plt.title("Ratings v Price - Amazon Books")
+    r1 = plt.bar(amz_data.index, amz_data['prev_price'], color = 'green', label = 'prev_price')
+    r2 = plt.bar(amz_data.index, amz_data['price'], color = 'red', label = 'price')
+
+    plt.title('Amazon.com "Web Scraping" Book Price Tracker')
+    plt.xticks(amz_data.index, amz_data['title'],color = 'green',rotation = 10, horizontalalignment = 'right')    
+    plt.ylabel('Price in $')
+    plt.legend()
     plt.show()
 
-except: 
-    print("Error - unable to connect / convert the data - check connection and code")
+# Main Driver
+if __name__ == '__main__':
 
-dbcon.close()
+    # connect to db on the remote server (192.168.1.7 where scraped data is stored)
+    dbcon
+    try:
+        gen_plot()
+    except: 
+        print('Error - unable to connect / convert the data - check connection and code')
+    finally:
+    # close connection 
+        dbcon.close() 
