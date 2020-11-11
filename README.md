@@ -3,7 +3,7 @@
 ## Amazon Scrapy Spider ('web scraping books')
 <br>
 <a href="https://youtu.be/grkwcZmfeLA">
-  <img src="/images/price tracking.png" alt="YouTube Video of Complete Amazon MySQL Project inc Matplotlib" style="">
+  <img src="/images/price tracking.png" alt="Amazon Price Tracking Scrapy/MySQL Project inc Matplotlib" style="">
 </a> 
 <br>
 
