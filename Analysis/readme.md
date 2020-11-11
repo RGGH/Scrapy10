@@ -1,1 +1,1 @@
-## Price Monitoring to follow
+## Price Monitoring
