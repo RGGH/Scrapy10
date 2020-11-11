@@ -1,6 +1,8 @@
 # Scrapy 10
 Amazon Scrapy Spider ('web scraping books')
-https://youtu.be/grkwcZmfeLA
+<a href="https://youtu.be/grkwcZmfeLA">
+  <img src="/images/phpmyadmin_screenshot-800w.png" alt="YouTube Video of Complete Amazon MySQL Project inc Matplotlib" style="">
+</a> 
 <br>
 <p align="center">
   <img src="/images/sm1.PNG">
