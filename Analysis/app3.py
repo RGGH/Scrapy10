@@ -23,7 +23,6 @@ def gen_plot():
     amz_data = pd.DataFrame(SQL_Query, columns=['id','title','price', 'prev_price'])
     print(amz_data)
 
-    fig, ax = plt.subplots()
     opacity = 0.6
     r1 = plt.bar(amz_data.index, amz_data['prev_price'], color = 'green', label = 'prev_price',alpha=opacity)
     r2 = plt.bar(amz_data.index, amz_data['price'], color = 'red', label = 'price',alpha=opacity)
