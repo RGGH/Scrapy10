@@ -24,8 +24,8 @@ def gen_plot():
     print(amz_data)
 
     opacity = 0.6
-    r1 = plt.bar(amz_data.index, amz_data['prev_price'], color = 'green', label = 'prev_price',alpha=opacity)
-    r2 = plt.bar(amz_data.index, amz_data['price'], color = 'red', label = 'price',alpha=opacity)
+    plt.bar(amz_data.index, amz_data['prev_price'], color = 'green', label = 'prev_price',alpha=opacity)
+    plt.bar(amz_data.index, amz_data['price'], color = 'red', label = 'price',alpha=opacity)
 
     plt.title('Amazon.com "Web Scraping" Book Price Tracker')
     plt.xticks(amz_data.index, amz_data['title'],color = 'green',rotation = 10, horizontalalignment = 'right')    
